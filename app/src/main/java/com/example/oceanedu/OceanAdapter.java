@@ -9,14 +9,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-//RecycleView Adapter manages the images in the view pager
+/**
+ * The OceanAdapter class manages the components in the view pager
+ * This class inherits from the RecyclerView adapter
+ */
 public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
 
+    //Declare array and variables
     String data1[], data2[];
     int images[];
     Context context;
 
-    //Constructor
+
+    /**
+     * Constructor for creating an ocean adapter
+     * @param ct
+     * @param s1
+     * @param s2
+     * @param img
+     */
     public OceanAdapter(Context ct, String s1[], String s2[], int img[]){
         context = ct;
         data1 = s1;
@@ -24,6 +35,12 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
         images = img;
     }
 
+    /**
+     * onCreateViewHolder method for the OceanViewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public OceanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +52,11 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
         return new OceanViewHolder(view);
     }
 
+    /**
+     * onBindViewHolder method for the OceanViewHolder
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull OceanViewHolder holder, int position) {
         //Store returned selected animal in the text view(widget) holder
@@ -43,9 +65,13 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
         holder.imageViewAnimal.setImageResource(images[position]);
     }
 
+    /**
+     * getItemCount method for the OceanViewHolder, gets the images array
+     * @return images
+     */
     @Override
     public int getItemCount() {
-        //Retrieve the number of animals from the mainViewModel
+        //Retrieve the animals from the images array
         return images.length;
     }
 }

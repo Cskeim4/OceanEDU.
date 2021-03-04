@@ -1,3 +1,8 @@
+/**
+ * Ocean Education App, Purpose: help kids learn the different animals in the ocean and their names
+ * @author Clara Skeim
+ * Version 1.0
+ */
 package com.example.oceanedu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,87 +20,64 @@ import android.widget.Button;
 
 // https://www.geeksforgeeks.org/image-slider-in-android-using-viewpager/
 
+/**
+ * Main Activity Class
+ */
 public class MainActivity extends AppCompatActivity {
 
+    //Declare various widgets
     ViewPager2 viewPage;
     Button buttonAudio;
+    MediaPlayer mediaPlayer;
 
-    MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.sound_file_1);
-
-
+    //Initialize arrays
     String s1[], s2[];
+    int audioFiles [];
+
     int images [] = {R.drawable.dolphin, R.drawable.seahorse, R.drawable.seaturtle,
             R.drawable.shark, R.drawable.octopus, R.drawable.jellyfish, R.drawable.lobster,
             R.drawable.starfish, R.drawable.orca, R.drawable.mantaray};
 
+
+    /**
+     * onCreate Method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Get the content from the names and description arrays
+        s1 = getResources().getStringArray(R.array.Animal_Names);
+        s2 = getResources().getStringArray(R.array.description);
 
-        // Set up the ImagePageAdapter similar to other RecycleView Adapters
-        viewPage = (ViewPager2) findViewById(R.id.viewPagerMain);
+        // Set up the ViewPager Adapter similar to other RecycleView Adapters
+        viewPage = (ViewPager2) findViewById(R.id.viewPager);
         OceanAdapter adapter = new OceanAdapter(this, s1, s2, images);
         viewPage.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        s1 = getResources().getStringArray(R.array.Animal_Names);
-        s2 = getResources().getStringArray(R.array.description);
+        //Array to store the audio files for the animal name pronunciations
+        audioFiles = new int[] {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
+                R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
+                R.raw.starfish, R.raw.orca, R.raw.mantaray};
 
-//        recyclerView.setAdapter(oceanAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Set the media player to get the array of audio files
+        mediaPlayer = MediaPlayer.create(this, audioFiles[0]);
+
     }
 
-    //For audio or video of animal in action??
-    private void setupButtonWeb1() {
+    /**
+     * Method for Handling the Audio Button and Media Player
+     */
+    //For audio
+    private void setupAudioButton() {
         buttonAudio = findViewById(R.id.buttonAudio);
         buttonAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Add implicit intent code to open web browser to event 1
-                //When the web info button is clicked open a web browser
-                Uri webpage = Uri.parse("audio.com"); //or watch me(animal) in action??
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-                //Verify there is an app that can handle the intent
-                if (webIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(webIntent);
-                }
+                mediaPlayer.start();
             }
         });
-    }
-
-    //Or set audio to the button and create another array
-    private void setButtonAudio(){
-        String url = "http://........"; // your URL here
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioAttributes(
-                new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .build()
-        );
-        mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare(); // might take long! (for buffering, etc)
-        mediaPlayer.start();
-    }
-
-    //Or this??
-    public class MyService extends Service implements MediaPlayer.OnPreparedListener {
-        private static final String ACTION_PLAY = "com.example.action.PLAY";
-        MediaPlayer mediaPlayer = null;
-
-        public int onStartCommand(Intent intent, int flags, int startId) {
-        ...
-            if (intent.getAction().equals(ACTION_PLAY)) {
-                mediaPlayer = ... // initialize it here
-                mediaPlayer.setOnPreparedListener(this);
-                mediaPlayer.prepareAsync(); // prepare async to not block main thread
-            }
-        }
-
-        /** Called when MediaPlayer is ready */
-        public void onPrepared(MediaPlayer player) {
-            player.start();
-        }
     }
 }

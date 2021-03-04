@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OceanEDU</string>
+    <string name="press_to_hear_animal_name">Press to Hear Animal Name</string>
 
     <string-array name="Animal_Names">
         <item>Dolphin</item>
@@ -10,15 +11,15 @@
         <item>Jellyfish</item>
         <item>Lobster</item>
         <item>Starfish</item>
-        <item>Orca/Killer Whale</item>
+        <item>Orca or Killer Whale</item>
         <item>Manta Ray</item>
     </string-array>
 
     //https://www.natgeokids.com/nz/discover/animals/sea-life
     <string-array name="description">
         <item>Fun Fact: Dolphins live in groups of 5 to 15 called pods!</item>
-        <item>Fun Fact: Male seahorses carry their babies in a pouch called the brood pouch!</item>
-        <item>Fun Fact: Female sea turtles lay their eggs at same nesting grounds where they were born!</item>
+        <item>Fun Fact: Male seahorses carry their babies in a pouch called a brood pouch!</item>
+        <item>Fun Fact: Female sea turtles lay their eggs at the same nesting grounds where they were born!</item>
         <item>Fun Fact: Sharks have no bones in their bodies!</item>
         <item>Fun Fact: Octopuses have three hearts!</item>
         <item>Fun Fact: Jellyfish have been around for millions of years!</item>

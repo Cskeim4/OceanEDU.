@@ -7,13 +7,14 @@
 
     <ImageView
         android:id="@+id/imageViewAnimal"
-        android:layout_width="363dp"
-        android:layout_height="242dp"
+        android:layout_width="359dp"
+        android:layout_height="294dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462"
+        app:layout_constraintVertical_bias="0.332"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -21,19 +22,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/imageViewAnimal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.423" />
 
     <TextView
         android:id="@+id/textViewFunFact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="238dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewAnimal" />
 
@@ -41,10 +46,12 @@
         android:id="@+id/buttonAudio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Press to Hear Animal Name"
+        android:layout_marginTop="8dp"
+        android:text="@string/press_to_hear_animal_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFunFact" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFunFact"
+        app:layout_constraintVertical_bias="0.315" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
