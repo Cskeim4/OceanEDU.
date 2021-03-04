@@ -7,14 +7,26 @@
         <item>Sea Turtle</item>
         <item>Shark</item>
         <item>Octopus</item>
+        <item>Jellyfish</item>
+        <item>Lobster</item>
+        <item>Starfish</item>
+        <item>Orca/Killer Whale</item>
+        <item>Manta Ray</item>
     </string-array>
 
+    //https://www.natgeokids.com/nz/discover/animals/sea-life
     <string-array name="description">
-        <item>Fun Fact</item>
-        <item>Fun Fact</item>
-        <item>Fun Fact</item>
-        <item>Fun Fact</item>
-        <item>Fun Fact</item>
+        <item>Fun Fact: Dolphins live in groups of 5 to 15 called pods!</item>
+        <item>Fun Fact: Male seahorses carry their babies in a pouch called the brood pouch!</item>
+        <item>Fun Fact: Female sea turtles lay their eggs at same nesting grounds where they were born!</item>
+        <item>Fun Fact: Sharks have no bones in their bodies!</item>
+        <item>Fun Fact: Octopuses have three hearts!</item>
+        <item>Fun Fact: Jellyfish have been around for millions of years!</item>
+        <item>Fun Fact: Lobsters shed their shells!</item>
+        <item>Fun Fact: Starfish can regrow damaged or lost arms!</item>
+        <item>Fun Fact: Orcas are huge animals, males can be 30 ft long!</item>
+        <item>Fun Fact: Manta Rays are known as the gentle giants of the sea!</item>
     </string-array>
+
 
 </resources>

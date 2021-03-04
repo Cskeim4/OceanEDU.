@@ -3,6 +3,7 @@ package com.example.oceanedu;
 import android.media.Image;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,12 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
     Image imageViewAnimal;
     Button buttonAudio;
 
+    ImageView imageView;
+
     public OceanViewHolder(@NonNull View itemView) {
         super(itemView);
+        imageView = (ImageView) itemView.findViewById(R.id.imageView);
+
         textViewName = itemView.findViewById(R.id.textViewName);
         textViewFunFact = itemView.findViewById(R.id.textViewFunFact);
     }
