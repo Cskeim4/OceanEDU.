@@ -18,6 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 // https://www.geeksforgeeks.org/image-slider-in-android-using-viewpager/
 
 /**
@@ -26,9 +32,13 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     //Declare various widgets
-    ViewPager2 viewPage;
+    ViewPager2 viewPager2;
     Button buttonAudio;
     MediaPlayer mediaPlayer;
+
+    //Declare the firebase database instance and reference
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference myref;
 
     //Initialize arrays
     String s1[], s2[];
@@ -37,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     int images [] = {R.drawable.dolphin, R.drawable.seahorse, R.drawable.seaturtle,
             R.drawable.shark, R.drawable.octopus, R.drawable.jellyfish, R.drawable.lobster,
             R.drawable.starfish, R.drawable.orca, R.drawable.mantaray};
-
 
     /**
      * onCreate Method
@@ -52,18 +61,44 @@ public class MainActivity extends AppCompatActivity {
         s2 = getResources().getStringArray(R.array.description);
 
         // Set up the ViewPager Adapter similar to other RecycleView Adapters
-        viewPage = (ViewPager2) findViewById(R.id.viewPager);
+        viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
         OceanAdapter adapter = new OceanAdapter(this, s1, s2, images);
-        viewPage.setAdapter(adapter);
+        viewPager2.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         //Array to store the audio files for the animal name pronunciations
+        //?? not working
         audioFiles = new int[] {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
                 R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
                 R.raw.starfish, R.raw.orca, R.raw.mantaray};
 
         //Set the media player to get the array of audio files
-        mediaPlayer = MediaPlayer.create(this, audioFiles[0]);
+        mediaPlayer = MediaPlayer.create(this, audioFiles[]);
+
+        //The audio button and let the DB know about data changes
+        setupAudioButton();
+        setupFirebaseDataChange();
+    }
+
+    /**
+     * Method to notify the FirebaseDatabase of changes to data
+     */
+    private void setupFirebaseDataChange() {
+        firebaseDatabase = new FirebaseDatabase();
+        myref = firebaseDatabase.open();
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("CIS3334", "Starting onDataChange()"); // debugging log
+                firebaseDatabase.update(dataSnapshot);
+                adapter.notifyDataSetChanged();
+            }
+            //Method to check for database errors
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("CIS3334", "onCancelled: ");
+            }
+        });
 
     }
 

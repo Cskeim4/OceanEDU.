@@ -9,17 +9,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * The OceanAdapter class manages the components in the view pager
  * This class inherits from the RecyclerView adapter
  */
 public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
 
+    //Declare firebaseDatabase
+    FirebaseDatabase firebaseDatabase;
+
+    //Set the firebase instance
+    OceanAdapter (FirebaseDatabase firebaseDatabase){
+        this.firebaseDatabase = firebaseDatabase;
+    }
+
     //Declare array and variables
     String data1[], data2[];
     int images[];
     Context context;
-
 
     /**
      * Constructor for creating an ocean adapter

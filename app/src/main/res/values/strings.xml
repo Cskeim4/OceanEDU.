@@ -2,6 +2,7 @@
     <string name="app_name">OceanEDU</string>
     <string name="press_to_hear_animal_name">Press to Hear Animal Name</string>
 
+    //List of Animal Names for the Ocean Edu App
     <string-array name="Animal_Names">
         <item>Dolphin</item>
         <item>Seahorse</item>
@@ -15,6 +16,7 @@
         <item>Manta Ray</item>
     </string-array>
 
+    //List of ocean animal fun fact to go with each animal
     //https://www.natgeokids.com/nz/discover/animals/sea-life
     <string-array name="description">
         <item>Fun Fact: Dolphins live in groups of 5 to 15 called pods!</item>
