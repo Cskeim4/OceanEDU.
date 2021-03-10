@@ -12,26 +12,32 @@ public class Animal {
     }
 
     public String getKey(){
+
         return key;
     }
 
     public void setKey(String key) {
+
         this.key = key;
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
     public String getFunFact() {
+
         return funFact;
     }
 
     public void setFunFact(String funFact) {
+
         this.funFact = funFact;
     }
 

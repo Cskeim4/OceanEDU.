@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mediaPlayer.start();
             }
         });

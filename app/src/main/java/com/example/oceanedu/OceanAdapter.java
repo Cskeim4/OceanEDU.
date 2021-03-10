@@ -22,6 +22,7 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
 
     //Set the firebase instance
     OceanAdapter (FirebaseDatabase firebaseDatabase){
+
         this.firebaseDatabase = firebaseDatabase;
     }
 
