@@ -5,6 +5,10 @@ public class Animal {
     private String funFact;
     private String key;
 
+    public Animal(){
+
+    }
+
     public Animal(String key, String name, String funFact) {
         this.key = key;
         this.name = name;

@@ -1,5 +1,6 @@
 package com.example.oceanedu;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +19,9 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
     ImageView imageViewAnimal;
     Button buttonAudio;
 
+    //Declare the media player
+    MediaPlayer mediaPlayer;
+
     /**
      * OceanViewHolder Constructor for creating the view holder and various UI widgets
      * @param itemView
@@ -30,5 +34,23 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
         textViewFunFact = itemView.findViewById(R.id.textViewFunFact);
         imageViewAnimal = itemView.findViewById((R.id.imageViewAnimal));
         buttonAudio = itemView.findViewById(R.id.buttonAudio);
+
+        //The audio button and let the DB know about data changes
+        setupAudioButton(itemView);
+    }
+
+    /**
+     * Method for Handling the Audio Button and Media Player
+     */
+    //For audio
+    private void setupAudioButton(View itemView) {
+        buttonAudio = itemView.findViewById(R.id.buttonAudio);
+        buttonAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mediaPlayer.start();
+            }
+        });
     }
 }

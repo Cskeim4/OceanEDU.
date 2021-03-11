@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // https://www.geeksforgeeks.org/image-slider-in-android-using-viewpager/
 
 /**
@@ -35,14 +38,21 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     Button buttonAudio;
     MediaPlayer mediaPlayer;
+    OceanAdapter adapter;
 
     //Declare the firebase database instance and reference
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myref;
+    //Create a tag to attach to the animal data
+    public static final String OceanDataTag = "Ocean Animal Data";
 
-    //Initialize arrays
-    String s1[], s2[];
-    int audioFiles [];
+    //Initialize array list of animal objects
+    List<Animal> animals;
+
+    //Initialize arrays to store the images and audio files
+    int audioFiles [] = {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
+            R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
+            R.raw.starfish, R.raw.orca, R.raw.mantaray};
 
     int images [] = {R.drawable.dolphin, R.drawable.seahorse, R.drawable.seaturtle,
             R.drawable.shark, R.drawable.octopus, R.drawable.jellyfish, R.drawable.lobster,
@@ -57,40 +67,62 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Get the content from the names and description arrays
-        s1 = getResources().getStringArray(R.array.Animal_Names);
-        s2 = getResources().getStringArray(R.array.description);
+        //s1 = getResources().getStringArray(R.array.Animal_Names);
 
-        // Set up the ViewPager Adapter similar to other RecycleView Adapters
+        //Declare new array list of animals
+        animals =  new ArrayList();
+
+        // Set the viewPager2 to the adapter and create a new OceanAdapter
+        //When data is changed, notify the adapter, send the adapter the data
         viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
-        OceanAdapter adapter = new OceanAdapter(this, s1, s2, images);
+        adapter = new OceanAdapter(this, animals, images, audioFiles);
         viewPager2.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         //Array to store the audio files for the animal name pronunciations
         //?? not working
-        audioFiles = new int[] {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
+        /*audioFiles = new int[] {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
                 R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
                 R.raw.starfish, R.raw.orca, R.raw.mantaray};
 
         //Set the media player to get the array of audio files
-        mediaPlayer = MediaPlayer.create(this, audioFiles[]);
+        mediaPlayer = MediaPlayer.create(this, audioFiles[0]);
+        */
 
-        //The audio button and let the DB know about data changes
-        setupAudioButton();
+        //Call the method to change the data in the Firebase Db instance
         setupFirebaseDataChange();
+
+        //Code to get a new key from the Db, the key is attached to the new animal object
+        //The Db reference is used to send the values in the animal object to the Db
+
+        /*
+        String key = myref.push().getKey();
+        // ---- set up the fish object
+        Animal animal = new Animal(key, "Animal Name", "Fun Fact");
+        // ---- write the vote to Firebase
+        myref.child(key).setValue(animal);
+         */
+
     }
 
     /**
      * Method to notify the FirebaseDatabase of changes to data
      */
     private void setupFirebaseDataChange() {
-        firebaseDatabase = new FirebaseDatabase();
-        myref = firebaseDatabase.open();
+        //Get the database instance and set the reference
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myref = firebaseDatabase.getReference(OceanDataTag);
         myref.addValueEventListener(new ValueEventListener() {
+            //When new data is added to the list create a new animal object and add it to the array list
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("CIS3334", "Starting onDataChange()"); // debugging log
-                firebaseDatabase.update(dataSnapshot);
+                animals.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Animal animal = data.getValue(Animal.class);
+                    animals.add(animal);
+                }
+                //Send a notification to the adapter when the dataset is changed/updated
                 adapter.notifyDataSetChanged();
             }
             //Method to check for database errors
@@ -102,18 +134,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Method for Handling the Audio Button and Media Player
-     */
-    //For audio
-    private void setupAudioButton() {
-        buttonAudio = findViewById(R.id.buttonAudio);
-        buttonAudio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mediaPlayer.start();
-            }
-        });
-    }
 }
