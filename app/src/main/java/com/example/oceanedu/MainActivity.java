@@ -38,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     Button buttonAudio;
     MediaPlayer mediaPlayer;
+    //Initialize the adapter
     OceanAdapter adapter;
 
     //Declare the firebase database instance and reference
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myref;
+
     //Create a tag to attach to the animal data
     public static final String OceanDataTag = "Ocean Animal Data";
 
@@ -79,16 +81,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager2.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        //Array to store the audio files for the animal name pronunciations
-        //?? not working
-        /*audioFiles = new int[] {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
-                R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
-                R.raw.starfish, R.raw.orca, R.raw.mantaray};
-
-        //Set the media player to get the array of audio files
-        mediaPlayer = MediaPlayer.create(this, audioFiles[0]);
-        */
-
         //Call the method to change the data in the Firebase Db instance
         setupFirebaseDataChange();
 
@@ -114,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         myref = firebaseDatabase.getReference(OceanDataTag);
         myref.addValueEventListener(new ValueEventListener() {
             //When new data is added to the list create a new animal object and add it to the array list
+
+            /**
+             *
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("CIS3334", "Starting onDataChange()"); // debugging log
@@ -126,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
             //Method to check for database errors
+
+            /**
+             *
+             * @param databaseError
+             */
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("CIS3334", "onCancelled: ");

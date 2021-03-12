@@ -35,22 +35,7 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
         imageViewAnimal = itemView.findViewById((R.id.imageViewAnimal));
         buttonAudio = itemView.findViewById(R.id.buttonAudio);
 
-        //The audio button and let the DB know about data changes
-        setupAudioButton(itemView);
     }
 
-    /**
-     * Method for Handling the Audio Button and Media Player
-     */
-    //For audio
-    private void setupAudioButton(View itemView) {
-        buttonAudio = itemView.findViewById(R.id.buttonAudio);
-        buttonAudio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                mediaPlayer.start();
-            }
-        });
-    }
 }

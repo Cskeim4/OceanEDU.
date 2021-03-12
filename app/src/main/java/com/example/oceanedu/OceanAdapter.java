@@ -64,15 +64,9 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.animal_row, parent, false);
 
-        //Set the media player to get the array of audio files
-        mediaPlayer = MediaPlayer.create(this, audioFiles[]);
-
-
         //return the new view for the specific order
         OceanViewHolder holder = new OceanViewHolder(view);
         return new OceanViewHolder(view);
-
-
     }
 
     /**
@@ -86,7 +80,24 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
         holder.textViewName.setText(animals.get(position).getName());
         holder.textViewFunFact.setText(animals.get(position).getFunFact());
         holder.imageViewAnimal.setImageResource(images[position]);
-        holder.imageViewAnimal.setAudioResource(audioFiles[position]);
+
+        //The audio button and let the DB know about data changes
+        setupAudioButton(holder,position);
+    }
+
+    /**
+     * Method for Handling the Audio Button and Media Player
+     */
+    //For audio
+    private void setupAudioButton(OceanViewHolder holder, int position) {
+        holder.buttonAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Set the media player to get the array of audio files
+                mediaPlayer = MediaPlayer.create(context, audioFiles[position]);
+                mediaPlayer.start();
+            }
+        });
     }
 
     /**
