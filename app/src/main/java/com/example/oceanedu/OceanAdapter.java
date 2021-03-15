@@ -23,17 +23,16 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
     //Declare firebaseDatabase
     FirebaseDatabase firebaseDatabase;
 
+    //Declare a main view model
+    MainViewModel mainViewModel;
+
     //Set the firebase instance
     OceanAdapter (FirebaseDatabase firebaseDatabase){
 
         this.firebaseDatabase = firebaseDatabase;
     }
 
-    //Declare array and variables
-    List<Animal> animals;
-    int images[];
     Context context;
-    int audioFiles[];
 
     //Initialize the media player
     MediaPlayer mediaPlayer;
@@ -44,7 +43,7 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
      * @param inAnimals
      * @param img
      */
-    public OceanAdapter(Context ct, List<Animal> inAnimals, int img[], int audio[]){
+    public OceanAdapter(Context ct, MainViewModel mainViewModel){
         context = ct;
         animals  = inAnimals;
         images = img;

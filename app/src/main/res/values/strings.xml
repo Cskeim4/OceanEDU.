@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">OceanEDU</string>
     <string name="press_to_hear_animal_name">Press to Hear Animal Name</string>
+    <string name="textviewName">TextView</string>
+    <string name="textviewDescription">TextView</string>
+    <string name="image">Image</string>
+
 
     //List of Animal Names for the Ocean Edu App
     <string-array name="Animal_Names">
@@ -30,6 +34,6 @@
         <item>Fun Fact: Orcas are huge animals, males can be 30 ft long!</item>
         <item>Fun Fact: Manta Rays are known as the gentle giants of the sea!</item>
     </string-array>
-
+    
 
 </resources>

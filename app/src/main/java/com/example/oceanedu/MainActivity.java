@@ -6,10 +6,12 @@
 package com.example.oceanedu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     //Initialize the adapter
     OceanAdapter adapter;
 
+    //Declare a main view model
+    MainViewModel mainViewModel;
+
     //Declare the firebase database instance and reference
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myref;
@@ -48,17 +53,7 @@ public class MainActivity extends AppCompatActivity {
     //Create a tag to attach to the animal data
     public static final String OceanDataTag = "Ocean Animal Data";
 
-    //Initialize array list of animal objects
-    List<Animal> animals;
-
-    //Initialize arrays to store the images and audio files
-    int audioFiles [] = {R.raw.dolphin, R.raw.seahorse, R.raw.seaturtle,
-            R.raw.shark, R.raw.octopus, R.raw.jellyfish, R.raw.lobster,
-            R.raw.starfish, R.raw.orca, R.raw.mantaray};
-
-    int images [] = {R.drawable.dolphin, R.drawable.seahorse, R.drawable.seaturtle,
-            R.drawable.shark, R.drawable.octopus, R.drawable.jellyfish, R.drawable.lobster,
-            R.drawable.starfish, R.drawable.orca, R.drawable.mantaray};
+    Context context;
 
     /**
      * onCreate Method
@@ -71,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
         //Get the content from the names and description arrays
         //s1 = getResources().getStringArray(R.array.Animal_Names);
 
-        //Declare new array list of animals
-        animals =  new ArrayList();
-
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         // Set the viewPager2 to the adapter and create a new OceanAdapter
         //When data is changed, notify the adapter, send the adapter the data
         viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
-        adapter = new OceanAdapter(this, animals, images, audioFiles);
+        adapter = new OceanAdapter(this, MainViewModel.getAllAnimals(), images, audioFiles);
         viewPager2.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
 
         //Call the method to change the data in the Firebase Db instance
         setupFirebaseDataChange();
