@@ -32,7 +32,7 @@ import java.util.List;
 // https://www.geeksforgeeks.org/image-slider-in-android-using-viewpager/
 
 /**
- * Main Activity Class
+ * Main Activity Class that handles the main functions and creation of elements in the application
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     Context context;
 
     /**
-     * onCreate Method
-     * @param savedInstanceState
+     * The onCreate Method sets up the different application components and calls the db change method
+     * @param savedInstanceState, saves the current state of the application
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +66,23 @@ public class MainActivity extends AppCompatActivity {
         //Get the content from the names and description arrays
         //s1 = getResources().getStringArray(R.array.Animal_Names);
 
+        //Initialize the main view model and connect to the mainViewModel class
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
         // Set the viewPager2 to the adapter and create a new OceanAdapter
         //When data is changed, notify the adapter, send the adapter the data
         viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
-        adapter = new OceanAdapter(this, MainViewModel.getAllAnimals(), images, audioFiles);
+        adapter = new OceanAdapter(this, MainViewModel.getAllAnimals(),
+                  MainViewModel.getAllImages(), MainViewModel.getAllAudio());
         viewPager2.setAdapter(adapter);
+        //Call the method in the adapter to notify of changes in data
         adapter.notifyDataSetChanged();
-
-
 
         //Call the method to change the data in the Firebase Db instance
         setupFirebaseDataChange();
 
         //Code to get a new key from the Db, the key is attached to the new animal object
         //The Db reference is used to send the values in the animal object to the Db
-
         /*
         String key = myref.push().getKey();
         // ---- set up the fish object
@@ -100,28 +101,27 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         myref = firebaseDatabase.getReference(OceanDataTag);
         myref.addValueEventListener(new ValueEventListener() {
-            //When new data is added to the list create a new animal object and add it to the array list
 
             /**
-             *
-             * @param dataSnapshot
+             * The onDataChange method clear the current list of animals then creates the new animal
+             * The new animal is added to the array list and the adapter is notified of the changes
+             * @param dataSnapshot, takes an image of the current state of the data in order to add on to it
              */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("CIS3334", "Starting onDataChange()"); // debugging log
-                animals.clear();
+                MainViewModel.getAllAnimals().clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Animal animal = data.getValue(Animal.class);
-                    animals.add(animal);
+                    MainViewModel.animals.add(animal);
                 }
                 //Send a notification to the adapter when the dataset is changed/updated
                 adapter.notifyDataSetChanged();
             }
-            //Method to check for database errors
 
             /**
-             *
-             * @param databaseError
+             * The onCancelled method checks for errors in the database
+             * @param databaseError, takes in the error and gives the message
              */
             @Override
             public void onCancelled(DatabaseError databaseError) {

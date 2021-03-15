@@ -39,22 +39,19 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
 
     /**
      * Constructor for creating an ocean adapter
-     * @param ct
-     * @param inAnimals
-     * @param img
+     * @param ct, takes in the context and sets it
+     * @param inMainViewModel, brings in the main view model
      */
-    public OceanAdapter(Context ct, MainViewModel mainViewModel){
+    public OceanAdapter(Context ct, MainViewModel inMainViewModel){
         context = ct;
-        animals  = inAnimals;
-        images = img;
-        audioFiles = audio;
+        mainViewModel = inMainViewModel;
     }
 
     /**
-     * onCreateViewHolder method for the OceanViewHolder
-     * @param parent
-     * @param viewType
-     * @return
+     * onCreateViewHolder method for the OceanViewHolder, sets up the view
+     * @param parent, takes in the view group parent
+     * @param viewType, takes in the view type
+     * @return, returns the newly created ocean view holder
      */
     @NonNull
     @Override
@@ -70,42 +67,43 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
 
     /**
      * onBindViewHolder method for the OceanViewHolder
-     * @param holder
-     * @param position
+     * @param holder, stores the items in the view holder for each specific widget
+     * @param position, gets the position of the specific item in the list
      */
     @Override
     public void onBindViewHolder(@NonNull OceanViewHolder holder, int position) {
         //Store returned selected animal in the text view(widget) holder
-        holder.textViewName.setText(animals.get(position).getName());
-        holder.textViewFunFact.setText(animals.get(position).getFunFact());
-        holder.imageViewAnimal.setImageResource(images[position]);
+        holder.textViewName.setText(MainViewModel.animals.get(position).getName());
+        holder.textViewFunFact.setText(MainViewModel.animals.get(position).getFunFact());
+        holder.imageViewAnimal.setImageResource(MainViewModel.images[position]);
 
         //The audio button and let the DB know about data changes
         setupAudioButton(holder,position);
     }
 
+
     /**
      * Method for Handling the Audio Button and Media Player
+     * @param holder, finds the holder the desired item is in
+     * @param position, get the position of the specific audio file
      */
-    //For audio
     private void setupAudioButton(OceanViewHolder holder, int position) {
         holder.buttonAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Set the media player to get the array of audio files
-                mediaPlayer = MediaPlayer.create(context, audioFiles[position]);
+                mediaPlayer = MediaPlayer.create(context, MainViewModel.getAudio[position]);
                 mediaPlayer.start();
             }
         });
     }
 
     /**
-     * getItemCount method for the OceanViewHolder, gets the images array
-     * @return images
+     * getItemCount method gets the size/length of the animals array
      */
     @Override
     public int getItemCount() {
-        //Retrieve the animals from the images array
-        return animals.size();
+        //Retrieve the animals from the animals array
+        return MainViewModel.getAllAnimals().size();
     }
 }
