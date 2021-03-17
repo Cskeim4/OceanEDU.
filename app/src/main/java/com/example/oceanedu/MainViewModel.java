@@ -58,6 +58,7 @@ public class MainViewModel extends ViewModel {
      * @return, returns all of the audio files
      */
     public int[] getAllAudio() {
+
         return audioFiles;
     }
 
@@ -67,7 +68,8 @@ public class MainViewModel extends ViewModel {
      * @return, returns the file for the specified position in the array
      */
     public int getAudio(int position) {
-        return audioFiles.get(position);
+
+        return audioFiles[position];
     }
 
     /**
@@ -75,6 +77,7 @@ public class MainViewModel extends ViewModel {
      * @return, returns all of the image files in the list
      */
     public int[] getAllImages() {
+
         return images;
     }
 
@@ -84,7 +87,8 @@ public class MainViewModel extends ViewModel {
      * @return, returns the file for the specified position in the array
      */
     public int getImage(int position) {
-        return images.get(position);
+
+        return images[position];
     }
 
 }

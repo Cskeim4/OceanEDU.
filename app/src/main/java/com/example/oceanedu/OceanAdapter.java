@@ -73,9 +73,10 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull OceanViewHolder holder, int position) {
         //Store returned selected animal in the text view(widget) holder
-        holder.textViewName.setText(MainViewModel.animals.get(position).getName());
-        holder.textViewFunFact.setText(MainViewModel.animals.get(position).getFunFact());
-        holder.imageViewAnimal.setImageResource(MainViewModel.images[position]);
+        Animal animal = mainViewModel.getAnimal(position);
+        holder.textViewName.setText(animal.getName());
+        holder.textViewFunFact.setText(animal.getFunFact());
+        holder.imageViewAnimal.setImageResource(mainViewModel.getImage(position));
 
         //The audio button and let the DB know about data changes
         setupAudioButton(holder,position);
@@ -92,7 +93,7 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
             @Override
             public void onClick(View v) {
                 //Set the media player to get the array of audio files
-                mediaPlayer = MediaPlayer.create(context, MainViewModel.getAudio[position]);
+                mediaPlayer = MediaPlayer.create(context, mainViewModel.getAudio(position));
                 mediaPlayer.start();
             }
         });
@@ -104,6 +105,6 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
     @Override
     public int getItemCount() {
         //Retrieve the animals from the animals array
-        return MainViewModel.getAllAnimals().size();
+        return mainViewModel.getAllAnimals().size();
     }
 }

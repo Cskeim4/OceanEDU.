@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the viewPager2 to the adapter and create a new OceanAdapter
         //When data is changed, notify the adapter, send the adapter the data
         viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
-        adapter = new OceanAdapter(this, MainViewModel.getAllAnimals(),
-                  MainViewModel.getAllImages(), MainViewModel.getAllAudio());
+        adapter = new OceanAdapter(this, mainViewModel);
         viewPager2.setAdapter(adapter);
         //Call the method in the adapter to notify of changes in data
         adapter.notifyDataSetChanged();
@@ -110,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("CIS3334", "Starting onDataChange()"); // debugging log
-                MainViewModel.getAllAnimals().clear();
+                mainViewModel.getAllAnimals().clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Animal animal = data.getValue(Animal.class);
-                    MainViewModel.animals.add(animal);
+                    mainViewModel.animals.add(animal);
                 }
                 //Send a notification to the adapter when the dataset is changed/updated
                 adapter.notifyDataSetChanged();
