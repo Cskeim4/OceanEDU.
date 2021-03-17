@@ -23,8 +23,8 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
     MediaPlayer mediaPlayer;
 
     /**
-     * OceanViewHolder Constructor for creating the view holder and various UI widgets
-     * @param itemView
+     * OceanViewHolder Constructor for creating the view holder and connecting various UI widgets
+     * @param itemView, takes in the specific view for each item in the created view
      */
     public OceanViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,6 +36,4 @@ public class OceanViewHolder extends RecyclerView.ViewHolder {
         buttonAudio = itemView.findViewById(R.id.buttonAudio);
 
     }
-
-
 }

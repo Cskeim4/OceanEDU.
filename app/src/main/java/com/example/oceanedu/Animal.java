@@ -4,6 +4,8 @@ package com.example.oceanedu;
  * Animal Class for creating new animal objects to use in the application
  */
 public class Animal {
+
+    //Declare instance variables
     private String name;
     private String funFact;
     private String key;

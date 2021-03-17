@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     Button buttonAudio;
     MediaPlayer mediaPlayer;
+
     //Initialize the adapter
     OceanAdapter adapter;
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
         adapter = new OceanAdapter(this, mainViewModel);
         viewPager2.setAdapter(adapter);
+
         //Call the method in the adapter to notify of changes in data
         adapter.notifyDataSetChanged();
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         //The Db reference is used to send the values in the animal object to the Db
         /*
         String key = myref.push().getKey();
-        // ---- set up the fish object
+        // ---- set up the animal object
         Animal animal = new Animal(key, "Animal Name", "Fun Fact");
         // ---- write the vote to Firebase
         myref.child(key).setValue(animal);
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         myref.addValueEventListener(new ValueEventListener() {
 
             /**
-             * The onDataChange method clear the current list of animals then creates the new animal
+             * The onDataChange method clears the current list of animals then creates the new animal
              * The new animal is added to the array list and the adapter is notified of the changes
              * @param dataSnapshot, takes an image of the current state of the data in order to add on to it
              */

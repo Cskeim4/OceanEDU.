@@ -38,7 +38,7 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
     MediaPlayer mediaPlayer;
 
     /**
-     * Constructor for creating an ocean adapter
+     * Constructor for creating the ocean adapter
      * @param ct, takes in the context and sets it
      * @param inMainViewModel, brings in the main view model
      */
@@ -73,6 +73,7 @@ public class OceanAdapter extends RecyclerView.Adapter<OceanViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull OceanViewHolder holder, int position) {
         //Store returned selected animal in the text view(widget) holder
+        //Access components through the main view model variable
         Animal animal = mainViewModel.getAnimal(position);
         holder.textViewName.setText(animal.getName());
         holder.textViewFunFact.setText(animal.getFunFact());

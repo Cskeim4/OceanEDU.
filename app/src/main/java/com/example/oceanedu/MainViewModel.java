@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Main View Model allows for separation of code functionality for better organization
+ * The Main View Model allows for separation of code functionality and better organization
  */
 public class MainViewModel extends ViewModel {
 
@@ -21,6 +21,7 @@ public class MainViewModel extends ViewModel {
     public MainViewModel() {
 
     }
+
     //Initialize array list of animal objects
     List<Animal> animals = new ArrayList();
 
@@ -32,7 +33,6 @@ public class MainViewModel extends ViewModel {
     int images[] = {R.drawable.dolphin, R.drawable.seahorse, R.drawable.seaturtle,
             R.drawable.shark, R.drawable.octopus, R.drawable.jellyfish, R.drawable.lobster,
             R.drawable.starfish, R.drawable.orca, R.drawable.mantaray};
-
 
     /**
      * Gets a specific animal in the animals array
