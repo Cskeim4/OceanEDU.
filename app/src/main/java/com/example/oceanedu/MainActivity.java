@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAudio;
     MediaPlayer mediaPlayer;
 
-    //Initialize the adapter
+    //Initialize the ocean adapter
     OceanAdapter adapter;
 
     //Declare a main view model
